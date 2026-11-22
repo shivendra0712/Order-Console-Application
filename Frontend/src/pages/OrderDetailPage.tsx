@@ -56,7 +56,7 @@ function FulfilmentStepper({ order }: { order: OrderDetail }) {
 }
 
 export default function OrderDetailPage() {
-  const id = Number(useParams().id);
+  const id = useParams().id ?? '';
   const { data: order, error, loading, reload, setData } = useApi(() => api.getOrder(id), [id]);
   const [pending, setPending] = useState<OrderStatus | null>(null);
   const [confirmCancel, setConfirmCancel] = useState(false);

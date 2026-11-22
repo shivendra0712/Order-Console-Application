@@ -58,12 +58,12 @@ export const api = {
     return request<OrderList>(`/orders?${qs}`);
   },
 
-  getOrder: (id: number) => request<{ data: OrderDetail }>(`/orders/${id}`).then((r) => r.data),
+  getOrder: (id: string) => request<{ data: OrderDetail }>(`/orders/${id}`).then((r) => r.data),
 
   createOrder: (payload: CreateOrderPayload) =>
     request<{ data: OrderDetail }>('/orders', { method: 'POST', body: JSON.stringify(payload) }).then((r) => r.data),
 
-  updateStatus: (id: number, status: OrderStatus) =>
+  updateStatus: (id: string, status: OrderStatus) =>
     request<{ data: OrderDetail }>(`/orders/${id}/status`, {
       method: 'PATCH',
       body: JSON.stringify({ status }),

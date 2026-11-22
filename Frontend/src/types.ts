@@ -1,7 +1,7 @@
 export type OrderStatus = 'PLACED' | 'PACKED' | 'SHIPPED' | 'CANCELLED';
 
 export interface Product {
-  id: number;
+  id: string;
   sku: string;
   name: string;
   description: string;
@@ -12,7 +12,7 @@ export interface Product {
 }
 
 export interface OrderSummary {
-  id: number;
+  id: string;
   reference: string;
   customerName: string;
   status: OrderStatus;
@@ -23,7 +23,7 @@ export interface OrderSummary {
 }
 
 export interface OrderItem {
-  productId: number;
+  productId: string;
   productName: string;
   sku: string;
   unitPriceCents: number;
@@ -54,7 +54,7 @@ export interface OrderList {
 }
 
 export interface StockShortage {
-  productId: number;
+  productId: string;
   sku: string;
   name: string;
   requested: number;
@@ -75,9 +75,9 @@ export interface DashboardSummary {
   };
   statusCounts: Record<OrderStatus, number>;
   dailyOrders: { day: string; orders: number; revenueCents: number }[];
-  lowStock: { id: number; sku: string; name: string; stock: number }[];
+  lowStock: { id: string; sku: string; name: string; stock: number }[];
   lowStockThreshold: number;
-  topProducts: { productId: number; name: string; units: number; revenueCents: number }[];
+  topProducts: { productId: string; name: string; units: number; revenueCents: number }[];
   recentOrders: Pick<OrderSummary, 'id' | 'reference' | 'customerName' | 'status' | 'totalCents' | 'createdAt'>[];
 }
 
@@ -85,5 +85,5 @@ export interface CreateOrderPayload {
   customerName: string;
   customerPhone?: string;
   notes?: string;
-  items: { productId: number; quantity: number }[];
+  items: { productId: string; quantity: number }[];
 }

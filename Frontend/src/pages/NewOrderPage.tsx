@@ -20,7 +20,7 @@ import { useApi } from '../hooks/useApi';
 import { formatMoney } from '../lib/format';
 import type { Product, StockShortage } from '../types';
 
-type Cart = Record<number, number>; // productId -> quantity
+type Cart = Record<string, number>; // productId -> quantity
 
 interface FormErrors {
   customerName?: string;
@@ -78,7 +78,7 @@ export default function NewOrderPage() {
   const [customerPhone, setCustomerPhone] = useState('');
   const [notes, setNotes] = useState('');
   const [errors, setErrors] = useState<FormErrors>({});
-  const [shortages, setShortages] = useState<Record<number, StockShortage>>({});
+  const [shortages, setShortages] = useState<Record<string, StockShortage>>({});
   const [submitting, setSubmitting] = useState(false);
   const cartRef = useRef<HTMLDivElement>(null);
 
@@ -95,7 +95,7 @@ export default function NewOrderPage() {
   }, [products, search, category]);
 
   const lines = Object.entries(cart)
-    .map(([id, qty]) => ({ product: byId.get(Number(id)), qty }))
+    .map(([id, qty]) => ({ product: byId.get(id), qty }))
     .filter((l): l is { product: Product; qty: number } => Boolean(l.product));
   const totalCents = lines.reduce((s, l) => s + l.product.priceCents * l.qty, 0);
   const unitCount = lines.reduce((s, l) => s + l.qty, 0);
